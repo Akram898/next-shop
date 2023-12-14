@@ -48,9 +48,9 @@ const filters = [
 ]
 
 export function ProductFilters() {
-  const searchParams = useSearchParams();
+  const searchParams: any = useSearchParams();
   const router = useRouter();
-  const searchValues = Array.from(searchParams.entries())
+  const searchValues: [any, any][] = Array.from(searchParams.entries());
   return (
     <form className="sticky top-20">
       <h3 className="sr-only">Categories</h3>
@@ -61,7 +61,9 @@ export function ProductFilters() {
             <AccordionTrigger>
               <span>
                 {section.name}{" "}
-                <span className="ml-1 text-xs font-extrabold uppercase text-gray-400"></span>
+                <span className="ml-1 text-xs font-extrabold uppercase text-gray-400">
+                  {searchParams.get(section.id) ? `${searchParams.get(section.id)}` : ''}
+                </span>
               </span>
             </AccordionTrigger>
             <AccordionContent>
@@ -73,12 +75,12 @@ export function ProductFilters() {
                   >
                     <Checkbox 
                      id={`filter-${section.id}-${optionIdx}`}
-                     checked={searchValues.some(([key, value]) => key === section.id  && value === option.value)} 
-                      onClick={(event) => {
-                        const params = new URLSearchParams(searchParams);
-                        const checked = event.currentTarget.dataset.state === 'checked';
-                        checked ? params.delete(section.id) : params.set(section.id, option.value);
-                        router.replace(`/?${params.toString()}`);
+                     checked={searchValues.some(([key, value]: [any, any]) => key === section.id && value === option.value)}
+                     onClick={(event) => {
+                        const params = new URLSearchParams(searchParams)
+                        const checked = event.currentTarget.dataset.state === 'checked'
+                        checked ? params.delete(section.id) : params.set(section.id, option.value)
+                        router.replace(`/?${params.toString()}`)
 
                     }}/>
                     <label 

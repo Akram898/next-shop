@@ -6,6 +6,9 @@ import { Toaster } from "@/components/ui/toaster"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
+import dotenv from 'dotenv';
+
+dotenv.config();
 interface Props {
   children: React.ReactNode
 }
